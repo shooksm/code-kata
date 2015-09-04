@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('babysitter')
+    .module('kata')
     .config(routeConfig);
 
   function routeConfig($routeProvider) {

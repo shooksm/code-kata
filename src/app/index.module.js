@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('babysitter', ['ngTouch', 'ngRoute']);
+    .module('kata', ['ngTouch', 'ngRoute']);
 
 })();

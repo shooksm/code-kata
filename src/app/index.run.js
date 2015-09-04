@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('babysitter')
+    .module('kata')
     .run(runBlock);
 
   /** @ngInject */
