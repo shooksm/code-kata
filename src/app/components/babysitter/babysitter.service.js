@@ -9,13 +9,14 @@
   function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan) {
     var service = {
       calculateCharge: calculateCharge
-    }, startMoment, finishMoment;
+    }, startMoment, finishMoment, bedTimeMoment;
 
     return service;
 
-    function calculateCharge(start, finish) {
+    function calculateCharge(start, finish, bedTime) {
       startMoment = start;
       finishMoment = finish;
+      bedTimeMoment = bedTime;
       return $q(calculatePromise);
     }
 
@@ -38,6 +39,10 @@
 
       if (finishMoment.isBefore(startMoment)) {
         return reject('Finish time can not be before the start time');
+      }
+
+      if (!angular.isDefined(bedTimeMoment)) {
+        return reject('The bed time was not supplied');
       }
 
       return resolve('');
