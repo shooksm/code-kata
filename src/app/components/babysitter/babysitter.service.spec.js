@@ -15,5 +15,9 @@
     it('should have a calculateCharge method', inject(function() {
       expect(angular.isFunction(babysitterService.calculateCharge)).toBe(true);
     }));
+
+    it('should return a promise when calculateCharge is called', inject(function() {
+      expect(angular.isFunction(babysitterService.calculateCharge().then)).toBe(true);
+    }));
   });
 })();
