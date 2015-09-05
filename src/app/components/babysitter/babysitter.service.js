@@ -6,7 +6,7 @@
     .factory('babysitterService', babysitterService);
 
   /** @ngInject */
-  function babysitterService($q, forDisplay, startNoEarlierThan) {
+  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan) {
     var service = {
       calculateCharge: calculateCharge
     }, startMoment, finishMoment;
@@ -30,6 +30,10 @@
 
       if (!angular.isDefined(finishMoment)) {
         return reject('The finish time was not supplied');
+      }
+
+      if (finishMoment.isAfter(finishNoLaterThan)) {
+        return reject(finishMoment.format(forDisplay) + ' finish is later than ' + finishNoLaterThan.format(forDisplay));
       }
 
       return resolve('');
