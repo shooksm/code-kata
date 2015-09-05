@@ -15,13 +15,13 @@
 
     function calculateCharge() {
       return $q(calculatePromise);
+    }
 
-      function calculatePromise(resolve, reject) {
-        if (true) {
-          resolve('');
-        } else {
-          reject('');
-        }
+    function calculatePromise(resolve, reject) {
+      if (true) {
+        resolve('');
+      } else {
+        reject('');
       }
     }
   }
