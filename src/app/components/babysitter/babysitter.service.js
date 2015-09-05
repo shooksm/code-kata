@@ -21,11 +21,15 @@
 
     function calculatePromise(resolve, reject) {
       if (!angular.isDefined(startMoment)) {
-        return reject('The start moment was not supplied');
+        return reject('The start time was not supplied');
       }
 
       if (startMoment.isBefore(startNoEarlierThan)) {
         return reject(startMoment.format(forDisplay) + ' start is earlier than ' + startNoEarlierThan.format(forDisplay));
+      }
+
+      if (!angular.isDefined(finishMoment)) {
+        return reject('The finish time was not supplied');
       }
 
       return resolve('');

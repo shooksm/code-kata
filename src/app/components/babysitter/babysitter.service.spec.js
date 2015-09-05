@@ -3,7 +3,7 @@
 
   describe('babysitter.service', function(){
 
-    var babysitterService, earlyStart, moment, rootScope;
+    var babysitterService, earlyStart, moment, rootScope, validStart;
 
     beforeEach(function () {
       module('kata.babysitter');
@@ -12,6 +12,7 @@
         moment = _moment_;
         rootScope = $rootScope;
         earlyStart = moment({h:16, m:30});
+        validStart = moment({h:17, m:45});
       });
     });
 
@@ -38,7 +39,7 @@
       rootScope.$apply();
 
       expect(resolved).toBeUndefined();
-      expect(rejected).toBe('The start moment was not supplied');
+      expect(rejected).toBe('The start time was not supplied');
     }));
 
     it('should reject the promise when the start time is before 5PM', inject(function() {
@@ -57,6 +58,24 @@
 
       expect(resolved).toBeUndefined();
       expect(rejected).toBe('4:30 pm start is earlier than 5:00 pm');
+    }));
+
+    it('should reject the promise when the finish time is undefined', inject(function() {
+      var resolved, rejected;
+
+      babysitterService.calculateCharge(validStart).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBeUndefined();
+      expect(rejected).toBe('The finish time was not supplied');
     }));
   });
 })();
