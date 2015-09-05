@@ -3,8 +3,8 @@
 
   describe('babysitter.service', function(){
 
-    var babysitterService, bedTime, bedTimeBeforeEarliestStart, earlyStart, lateFinish, moment, rootScope,
-      validFinishSameDay, validFinishNextDay, validStart;
+    var babysitterService, bedTime, bedTimeBeforeEarliestStart, bedTimeAfterLatestFinish, earlyStart, lateFinish,
+      moment, rootScope, validFinishSameDay, validFinishNextDay, validStart;
 
     beforeEach(function () {
       module('kata.babysitter');
@@ -19,6 +19,7 @@
         validFinishNextDay = moment().add(1, 'd').set('h', 2).set('m', 10);
         bedTime = moment({h:21, m:30});
         bedTimeBeforeEarliestStart = moment({h:16, m:30});
+        bedTimeAfterLatestFinish = moment().add(1, 'd').set('h', 6);
       });
     });
 
@@ -154,6 +155,24 @@
 
       expect(resolved).toBeUndefined();
       expect(rejected).toBe('The bed time is before the earliest start time');
+    }));
+
+    it('should reject the promise when the bed time is after the latest finish time', inject(function() {
+      var resolved, rejected;
+
+      babysitterService.calculateCharge(validStart, validFinishSameDay, bedTimeAfterLatestFinish).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBeUndefined();
+      expect(rejected).toBe('The bed time is after the latest finish time');
     }));
   });
 })();

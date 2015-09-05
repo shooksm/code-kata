@@ -49,6 +49,10 @@
         return reject('The bed time is before the earliest start time');
       }
 
+      if (bedTimeMoment.isAfter(finishNoLaterThan)) {
+        return reject('The bed time is after the latest finish time');
+      }
+
       return resolve('');
     }
   }
