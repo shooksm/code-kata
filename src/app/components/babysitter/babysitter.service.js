@@ -8,7 +8,8 @@
   /** @ngInject */
   function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan) {
     var service = {
-      calculateCharge: calculateCharge
+      calculateCharge: calculateCharge,
+      hoursBetweenTimes: hoursBetweenTimes
     }, startMoment, finishMoment, bedTimeMoment;
 
     return service;
@@ -54,6 +55,10 @@
       }
 
       return resolve('');
+    }
+
+    function hoursBetweenTimes() {
+
     }
   }
 })();

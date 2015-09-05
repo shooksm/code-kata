@@ -174,5 +174,9 @@
       expect(resolved).toBeUndefined();
       expect(rejected).toBe('The bed time is after the latest finish time');
     }));
+
+    it('should have a hoursBetweenTimes method', inject(function () {
+      expect(angular.isFunction(babysitterService.hoursBetweenTimes)).toBe(true);
+    }));
   });
 })();
