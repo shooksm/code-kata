@@ -178,5 +178,19 @@
     it('should have a hoursBetweenTimes method', inject(function () {
       expect(angular.isFunction(babysitterService.hoursBetweenTimes)).toBe(true);
     }));
+
+    it('should return 0 hours when hoursBetweenTimes is called with a difference of 0 hours', inject(function() {
+      var start, finish;
+      start = finish = moment();
+
+      expect(babysitterService.hoursBetweenTimes(start, finish, start, finish)).toBe(0);
+    }));
+
+    it('should return 2 hours when hoursBetweenTimes is called with a difference of 1h 30m', inject(function() {
+      var start = moment(),
+        finish = moment().add(1, 'h').add(30, 'm');
+
+      expect(babysitterService.hoursBetweenTimes(start, finish, start, finish)).toBe(2);
+    }));
   });
 })();

@@ -6,7 +6,7 @@
     .factory('babysitterService', babysitterService);
 
   /** @ngInject */
-  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan) {
+  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, moment) {
     var service = {
       calculateCharge: calculateCharge,
       hoursBetweenTimes: hoursBetweenTimes
@@ -57,8 +57,13 @@
       return resolve('');
     }
 
-    function hoursBetweenTimes() {
+    function hoursBetweenTimes(start, finish, min, max) {
+      var comparisonStart, comparisonFinish;
 
+      comparisonStart = start;
+      comparisonFinish = finish;
+
+      return Math.ceil(comparisonFinish.diff(comparisonStart, 'm', true) / 60);
     }
   }
 })();
