@@ -36,6 +36,10 @@
         return reject(finishMoment.format(forDisplay) + ' finish is later than ' + finishNoLaterThan.format(forDisplay));
       }
 
+      if (finishMoment.isBefore(startMoment)) {
+        return reject('Finish time can not be before the start time');
+      }
+
       return resolve('');
     }
   }
