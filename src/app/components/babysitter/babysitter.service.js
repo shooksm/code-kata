@@ -45,6 +45,10 @@
         return reject('The bed time was not supplied');
       }
 
+      if (bedTimeMoment.isBefore(startNoEarlierThan)) {
+        return reject('The bed time is before the earliest start time');
+      }
+
       return resolve('');
     }
   }
