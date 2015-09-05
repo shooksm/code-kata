@@ -23,6 +23,24 @@
       expect(angular.isFunction(babysitterService.calculateCharge().then)).toBe(true);
     }));
 
+    it('should reject the promise when the start time is undefined', inject(function() {
+      var resolved, rejected;
+
+      babysitterService.calculateCharge().then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBeUndefined();
+      expect(rejected).toBe('The start moment was not supplied');
+    }));
+
     it('should reject the promise when the start time is before 5PM', inject(function() {
       var resolved, rejected;
 
