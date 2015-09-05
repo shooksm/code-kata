@@ -13,7 +13,7 @@
         rootScope = $rootScope;
         earlyStart = moment({h:16, m:30});
         validStart = moment({h:17, m:45});
-        lateFinish = moment({h:5, m:20});
+        lateFinish = moment().add(1, 'd').set('h', 5).set('m', 20);
       });
     });
 
