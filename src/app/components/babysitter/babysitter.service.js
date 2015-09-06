@@ -60,6 +60,10 @@
     function hoursBetweenTimes(start, finish, min, max) {
       var comparisonStart, comparisonFinish;
 
+      if (finish.isBefore(min)) {
+        return 0;
+      }
+
       comparisonStart = start;
       comparisonFinish = finish;
 
