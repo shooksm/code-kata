@@ -68,7 +68,12 @@
         return 0;
       }
 
-      comparisonStart = start;
+      if (start.isAfter(min)) {
+        comparisonStart = start;
+      } else {
+        comparisonStart = min;
+      }
+
       comparisonFinish = finish;
 
       return Math.ceil(comparisonFinish.diff(comparisonStart, 'h', true));

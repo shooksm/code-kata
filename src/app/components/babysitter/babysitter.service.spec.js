@@ -210,5 +210,14 @@
 
       expect(babysitterService.hoursBetweenTimes(start, finish, min, max)).toBe(0);
     }));
+
+    it('should return 1 hours when hoursBetweenTimes is called with a start before min', inject(function() {
+      var start = moment(),
+        finish = moment().add(2, 'h'),
+        min = moment().add(1, 'h'),
+        max = moment().add(3, 'h');
+
+      expect(babysitterService.hoursBetweenTimes(start, finish, min, max)).toBe(1);
+    }));
   });
 })();
