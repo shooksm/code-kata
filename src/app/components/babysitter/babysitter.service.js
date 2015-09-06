@@ -74,7 +74,11 @@
         comparisonStart = min;
       }
 
-      comparisonFinish = finish;
+      if (finish.isBefore(max)) {
+        comparisonFinish = finish;
+      } else {
+        comparisonFinish = max;
+      }
 
       return Math.ceil(comparisonFinish.diff(comparisonStart, 'h', true));
     }
