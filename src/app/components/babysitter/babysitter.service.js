@@ -63,7 +63,7 @@
       comparisonStart = start;
       comparisonFinish = finish;
 
-      return Math.ceil(comparisonFinish.diff(comparisonStart, 'm', true) / 60);
+      return Math.ceil(comparisonFinish.diff(comparisonStart, 'h', true));
     }
   }
 })();
