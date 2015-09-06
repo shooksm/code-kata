@@ -249,5 +249,26 @@
       expect(resolved).toBe(12);
       expect(rejected).toBeUndefined();
     }));
+
+    it('should return 8 when calculateCharge is called with 1 between bed time and midnight hour', inject(function() {
+      var resolved, rejected,
+        start = moment().set('h', 22).set('m', 0),
+        finish = moment().set('h', 23).set('m', 0),
+        bedTime = moment().set('h', 21).set('m', 0);
+
+      babysitterService.calculateCharge(start, finish, bedTime).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBe(8);
+      expect(rejected).toBeUndefined();
+    }));
   });
 })();

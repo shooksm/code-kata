@@ -6,7 +6,7 @@
     .factory('babysitterService', babysitterService);
 
   /** @ngInject */
-  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, beforeBedTimeRate) {
+  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, beforeBedTimeRate, bedTimeToMidnightRate, midnight) {
     var service = {
       calculateCharge: calculateCharge,
       hoursBetweenTimes: hoursBetweenTimes
@@ -55,7 +55,8 @@
       }
 
       return resolve(
-        hoursBetweenTimes(startMoment, finishMoment, startNoEarlierThan, bedTimeMoment) * beforeBedTimeRate
+        hoursBetweenTimes(startMoment, finishMoment, startNoEarlierThan, bedTimeMoment) * beforeBedTimeRate +
+        hoursBetweenTimes(startMoment, finishMoment, bedTimeMoment, midnight) * bedTimeToMidnightRate
       );
     }
 
