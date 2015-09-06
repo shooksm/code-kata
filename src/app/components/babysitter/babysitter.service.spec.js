@@ -229,7 +229,7 @@
       expect(babysitterService.hoursBetweenTimes(start, finish, min, max)).toBe(1);
     }));
 
-    it('should return 12 when calculateCharge is called with 1 before bed time hour', inject(function() {
+    it('should return 12 when calculateCharge is called with 1 hour before bed time', inject(function() {
       var resolved, rejected,
         start = moment().set('h', 17).set('m', 0),
         finish = moment().set('h', 18).set('m', 0),
@@ -250,7 +250,7 @@
       expect(rejected).toBeUndefined();
     }));
 
-    it('should return 8 when calculateCharge is called with 1 between bed time and midnight hour', inject(function() {
+    it('should return 8 when calculateCharge is called with 1 hour between bed time and midnight', inject(function() {
       var resolved, rejected,
         start = moment().set('h', 22).set('m', 0),
         finish = moment().set('h', 23).set('m', 0),
@@ -268,6 +268,27 @@
       rootScope.$apply();
 
       expect(resolved).toBe(8);
+      expect(rejected).toBeUndefined();
+    }));
+
+    it('should return 16 when calculateCharge is called with 1 hour after midnight', inject(function() {
+      var resolved, rejected,
+        start = moment().add(1, 'd').set('h', 1).set('m', 0),
+        finish = moment().add(1, 'd').set('h', 2).set('m', 0),
+        bedTime = moment().set('h', 21).set('m', 0);
+
+      babysitterService.calculateCharge(start, finish, bedTime).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBe(16);
       expect(rejected).toBeUndefined();
     }));
   });
