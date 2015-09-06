@@ -64,6 +64,10 @@
         return 0;
       }
 
+      if (start.isAfter(max)) {
+        return 0;
+      }
+
       comparisonStart = start;
       comparisonFinish = finish;
 
