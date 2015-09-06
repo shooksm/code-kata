@@ -228,5 +228,26 @@
 
       expect(babysitterService.hoursBetweenTimes(start, finish, min, max)).toBe(1);
     }));
+
+    it('should return 12 when calculateCharge is called with 1 before bed time hour', inject(function() {
+      var resolved, rejected,
+        start = moment().set('h', 17).set('m', 0),
+        finish = moment().set('h', 18).set('m', 0),
+        bedTime = moment().set('h', 21).set('m', 0);
+
+      babysitterService.calculateCharge(start, finish, bedTime).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBe(12);
+      expect(rejected).toBeUndefined();
+    }));
   });
 })();

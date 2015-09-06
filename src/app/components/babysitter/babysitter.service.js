@@ -6,7 +6,7 @@
     .factory('babysitterService', babysitterService);
 
   /** @ngInject */
-  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, moment) {
+  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, beforeBedTimeRate) {
     var service = {
       calculateCharge: calculateCharge,
       hoursBetweenTimes: hoursBetweenTimes
@@ -54,7 +54,9 @@
         return reject('The bed time is after the latest finish time');
       }
 
-      return resolve('');
+      return resolve(
+        hoursBetweenTimes(startMoment, finishMoment, startNoEarlierThan, bedTimeMoment) * beforeBedTimeRate
+      );
     }
 
     function hoursBetweenTimes(start, finish, min, max) {
