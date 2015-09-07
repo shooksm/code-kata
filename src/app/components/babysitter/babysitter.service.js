@@ -29,6 +29,12 @@
       return $q(calculatePromise);
     }
 
+    /**
+     * Handles validating start, finish and bed time. Performs the rate calculation.
+     * @param resolve {function}
+     * @param reject {function}
+     * @returns {function}
+     */
     function calculatePromise(resolve, reject) {
       if (!angular.isDefined(startMoment)) {
         return reject('The start time was not supplied');
