@@ -52,6 +52,10 @@
         return reject('The finish time was not supplied');
       }
 
+      if (!moment.isMoment(finishMoment)) {
+        return reject('The finish time is not a Moment');
+      }
+
       if (finishMoment.isAfter(finishNoLaterThan)) {
         return reject(finishMoment.format(forDisplay) + ' finish is later than ' + finishNoLaterThan.format(forDisplay));
       }
