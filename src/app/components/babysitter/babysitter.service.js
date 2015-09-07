@@ -61,26 +61,67 @@
       );
     }
 
+    /**
+     * Responsible for calculating the number of hours between two bounds. In the case of this application the bounds
+     * are the time the baby sitter started (S) and finished (F) watching kids compared against subsets of the night
+     * they worked like start time to bed time or bed time to midnight represented as min (N) and max (X).
+     *
+     * Scenario #1 - Start and Finish are before the Min and Max bounds return 0 hours
+     * S      F    N           X
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * Scenario #2 - Start and Finish are after the Min and Max bounds return 0 hours
+     * N           X   S          F
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * Scenario #3 - Start is after Min, use Start to compare the difference
+     * S           N     F     X
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * Scenario #4 - Start is before Min, use Min to compare the difference
+     * N           S     F     X
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * Scenario #5 - Finish is before Max, use Finish to compare the difference
+     *       N     S           F     X
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * Scenario #6 - Finish is after Max, use Max to compare the difference
+     *       N     S           X     F
+     * |-----|-----|-----|-----|-----|-----|
+     *
+     * @param start {moment}
+     * @param finish {moment}
+     * @param min {moment}
+     * @param max {moment}
+     * @returns {number}
+     */
     function hoursBetweenTimes(start, finish, min, max) {
       var comparisonStart, comparisonFinish;
 
+      // Covers Scenario #1
       if (finish.isBefore(min)) {
         return 0;
       }
 
+      // Covers Scenario #2
       if (start.isAfter(max)) {
         return 0;
       }
 
       if (start.isAfter(min)) {
+        // Covers Scenario #3
         comparisonStart = start;
       } else {
+        // Covers Scenario #4
         comparisonStart = min;
       }
 
       if (finish.isBefore(max)) {
+        // Covers Scenario #5
         comparisonFinish = finish;
       } else {
+        // Covers Scenario #6
         comparisonFinish = max;
       }
 
