@@ -14,6 +14,14 @@
 
     return service;
 
+    /**
+     * Establishes start, finish and bed times to the service and returns back a promise that will resolve with the
+     * total charge for the night or reject if there are issues with the start, finish and/or bed time properties.
+     * @param start {moment}
+     * @param finish {moment}
+     * @param bedTime {moment}
+     * @returns {promise}
+     */
     function calculateCharge(start, finish, bedTime) {
       startMoment = start;
       finishMoment = finish;
