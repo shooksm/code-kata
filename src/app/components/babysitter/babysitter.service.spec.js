@@ -291,5 +291,23 @@
       expect(resolved).toBe(16);
       expect(rejected).toBeUndefined();
     }));
+
+    it('should reject the promise when the start time is not a moment', inject(function() {
+      var resolved, rejected;
+
+      babysitterService.calculateCharge(Date.now()).then(
+        function (value) {
+          resolved = value;
+        },
+        function (value) {
+          rejected = value;
+        }
+      );
+
+      rootScope.$apply();
+
+      expect(resolved).toBeUndefined();
+      expect(rejected).toBe('The start time is not a Moment');
+    }));
   });
 })();

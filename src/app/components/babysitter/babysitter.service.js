@@ -6,7 +6,7 @@
     .factory('babysitterService', babysitterService);
 
   /** @ngInject */
-  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, beforeBedTimeRate, bedTimeToMidnightRate, afterMidnightRate, midnight) {
+  function babysitterService($q, forDisplay, startNoEarlierThan, finishNoLaterThan, beforeBedTimeRate, bedTimeToMidnightRate, afterMidnightRate, midnight, moment) {
     var service = {
       calculateCharge: calculateCharge,
       hoursBetweenTimes: hoursBetweenTimes
@@ -38,6 +38,10 @@
     function calculatePromise(resolve, reject) {
       if (!angular.isDefined(startMoment)) {
         return reject('The start time was not supplied');
+      }
+
+      if (!moment.isMoment(startMoment)) {
+        return reject('The start time is not a Moment');
       }
 
       if (startMoment.isBefore(startNoEarlierThan)) {
