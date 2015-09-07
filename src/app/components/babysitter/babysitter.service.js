@@ -68,6 +68,10 @@
         return reject('The bed time was not supplied');
       }
 
+      if (!moment.isMoment(bedTimeMoment)) {
+        return reject('The bed time is not a Moment');
+      }
+
       if (bedTimeMoment.isBefore(startNoEarlierThan)) {
         return reject('The bed time is before the earliest start time');
       }
